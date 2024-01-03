@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnFailureListener(exception ->{
                             String menssagemErro;
                             if (exception instanceof FirebaseAuthInvalidCredentialsException) {
-                                menssagemErro = "Digite um email válido!";
+                                menssagemErro = "Email ou senha incorretos!";
                             } else if (exception instanceof FirebaseNetworkException) {
                                 menssagemErro = "Sem conexão com a Internet!";
                             } else {
@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser usuarioAtual = auth.getCurrentUser();
         if(usuarioAtual != null){
             Intent intent = new Intent(this, TelaPrincipalActivity.class);
+            Toast.makeText(this, usuarioAtual.getEmail().toString(), Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
     }
