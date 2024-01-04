@@ -32,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.grpc.Status;
 
@@ -69,21 +70,18 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         rt.child("Sensores").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String leitura = "";
-                Integer mq2 = 0;
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    if (child.getKey().equals("bmp280")) {
-                        binding.textTemp.setText(child.getValue().toString() + "°C");
-                        leitura += child.getValue().toString() + "°C; ";
-                    } else if (child.getKey().equals("mq2")) {
-                        binding.textGas.setText(child.getValue().toString());
-                        leitura += child.getValue().toString() + "; ";
-                        mq2 = Integer.parseInt(child.getValue().toString());
-                    } else if (child.getKey().equals("timestamp")) {
-                        binding.textTime.setText(child.getValue().toString());
-                        leitura += child.getValue().toString();
-                    }
-                }
+
+                Map<String, Object> sensores = (Map<String, Object>) snapshot.getValue();
+
+                binding.textTemp.setText(sensores.get("bmp280").toString() + "°C");
+                String leitura = sensores.get("bmp280").toString() + "°C; ";
+
+                binding.textGas.setText(sensores.get("mq2").toString());
+                leitura += sensores.get("mq2").toString() + "; ";
+                int mq2 = Integer.parseInt(sensores.get("mq2").toString());
+
+                binding.textTime.setText(sensores.get("timestamp").toString());
+                leitura += sensores.get("timestamp").toString();
 
                 leituras.add(0, leitura);
                 adapter.notifyDataSetChanged();
