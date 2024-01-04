@@ -39,9 +39,6 @@ public class LoginActivity extends AppCompatActivity {
             if(email.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(this, "Campos em branco!", Toast.LENGTH_SHORT).show();
             }
-            if(email.isEmpty() || senha.isEmpty()) {
-                Toast.makeText(this, "Campos em branco!", Toast.LENGTH_SHORT).show();
-            }
             else {
                 auth.signInWithEmailAndPassword(email, senha)
                         .addOnCompleteListener(login -> {
