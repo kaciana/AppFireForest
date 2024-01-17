@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "882019499720",
-    "project_id": "fireforecast2",
-    "storage_bucket": "fireforecast2.appspot.com"
+    "project_number": "1095353594530",
+    "firebase_url": "https://fireforecastapp-default-rtdb.firebaseio.com",
+    "project_id": "fireforecastapp",
+    "storage_bucket": "fireforecastapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:882019499720:android:99bad220b49343409c2ffd",
+        "mobilesdk_app_id": "1:1095353594530:android:05d84559de814f21021dfb",
         "android_client_info": {
           "package_name": "com.example.myapplicationtest"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDQABK3UpLfaPaw5-cLlk9wUfNEwFi9UI8"
+          "current_key": "AIzaSyAqMeP-Nbpri-x_C3Po2_zWvBFJ5GEOC4M"
         }
       ],
       "services": {
