@@ -15,6 +15,7 @@ import android.app.NotificationManager;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.VibratorManager;
 import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -73,34 +74,37 @@ public class TelaPrincipalActivity extends AppCompatActivity {
 
                 Map<String, Object> sensores = (Map<String, Object>) snapshot.getValue();
 
-                binding.textTemp.setText(sensores.get("bmp280").toString() + "°C");
-                String leitura = sensores.get("bmp280").toString() + "°C; ";
+                if(sensores != null) {
 
-                binding.textGas.setText(sensores.get("mq2").toString());
-                leitura += sensores.get("mq2").toString() + "; ";
-                int mq2 = Integer.parseInt(sensores.get("mq2").toString());
+                    binding.textTemp.setText(sensores.get("bmp280").toString() + "°C");
+                    String leitura = sensores.get("bmp280").toString() + "°C; ";
 
-                binding.textTime.setText(sensores.get("timestamp").toString());
-                leitura += sensores.get("timestamp").toString();
+                    binding.textGas.setText(sensores.get("mq2").toString());
+                    leitura += sensores.get("mq2").toString() + "; ";
+                    int mq2 = Integer.parseInt(sensores.get("mq2").toString());
 
-                leituras.add(0, leitura);
-                adapter.notifyDataSetChanged();
+                    binding.textTime.setText(sensores.get("timestamp").toString());
+                    leitura += sensores.get("timestamp").toString();
 
-                if (mq2 > 2000) {
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                            TelaPrincipalActivity.this, CHANNEL_ID)
-                            .setSmallIcon(R.drawable.resource_super)
-                            .setContentTitle("Alerta de incêndio!!!")
-                            .setContentText("Risco de incêndio detectado. Vá para um local seguro!")
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    leituras.add(0, leitura);
+                    adapter.notifyDataSetChanged();
 
-                    if (ActivityCompat.checkSelfPermission(TelaPrincipalActivity.this, Manifest.permission.POST_NOTIFICATIONS)
-                            == PackageManager.PERMISSION_GRANTED) {
+                    if (mq2 > 2000) {
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                                TelaPrincipalActivity.this, CHANNEL_ID)
+                                .setSmallIcon(R.drawable.resource_super)
+                                .setContentTitle("Alerta de incêndio!!!")
+                                .setContentText("Risco de incêndio detectado. Vá para um local seguro!")
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(TelaPrincipalActivity.this);
-                        notificationManager.notify(100, builder.build());
-                    } else {
-                        ActivityCompat.requestPermissions(TelaPrincipalActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 100);
+                        if (ActivityCompat.checkSelfPermission(TelaPrincipalActivity.this, Manifest.permission.POST_NOTIFICATIONS)
+                                == PackageManager.PERMISSION_GRANTED) {
+
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(TelaPrincipalActivity.this);
+                            notificationManager.notify(100, builder.build());
+                        } else {
+                            ActivityCompat.requestPermissions(TelaPrincipalActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 100);
+                        }
                     }
                 }
 
@@ -117,7 +121,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Alerta";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
 
