@@ -45,7 +45,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
     private DatabaseReference rt = FirebaseDatabase.getInstance().getReference();
     private ArrayList<String> leituras = new ArrayList<>();
     private ArrayAdapter<String> adapter;
-    static final String CHANNEL_ID = "channel_id";
+    static final String CHANNEL_ID = "fireforecast";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +90,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
 
                     if (mq2 > 2000) {
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                                TelaPrincipalActivity.this, CHANNEL_ID)
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(TelaPrincipalActivity.this, CHANNEL_ID)
                                 .setSmallIcon(R.drawable.resource_super)
                                 .setContentTitle("Alerta de incêndio!!!")
                                 .setContentText("Risco de incêndio detectado. Vá para um local seguro!")
@@ -118,13 +117,17 @@ public class TelaPrincipalActivity extends AppCompatActivity {
     }
 
     private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is not in the Support Library.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Alerta";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.enableVibration(true);
+            // Register the channel with the system. You can't change the importance
+            // or other notification behaviors after this.
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-
         }
     }
 
