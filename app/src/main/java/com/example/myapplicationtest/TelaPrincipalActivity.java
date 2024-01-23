@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.TaskStackBuilder;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -90,6 +93,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
 
                     if (mq2 > 2000) {
+
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(TelaPrincipalActivity.this, CHANNEL_ID)
                                 .setSmallIcon(R.drawable.resource_super)
                                 .setContentTitle("Alerta de incêndio!!!")
@@ -129,6 +133,10 @@ public class TelaPrincipalActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
 }
