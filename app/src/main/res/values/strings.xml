@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FireForecast</string>
+    <string name="notification_channel_id">notification_channel_id</string>
 </resources>

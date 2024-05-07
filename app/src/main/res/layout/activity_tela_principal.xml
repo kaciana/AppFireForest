@@ -9,7 +9,6 @@
     tools:context=".TelaPrincipalActivity">
 
     <TextView
-        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -66,6 +65,27 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:text="CO2:"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/textCo2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@color/white"
+        android:padding="15dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:text="Data e Hora:"
         android:textColor="@color/black" />
 
@@ -96,7 +116,9 @@
         android:layout_height="200dp"
         android:layout_margin="15dp"
         android:background="@color/white"
-        android:dividerHeight="1dp" />
+        android:dividerHeight="1dp">
+
+    </ListView>
 
     <Button
         android:id="@+id/button"
